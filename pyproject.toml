@@ -12,4 +12,6 @@ dependencies = [
     "langchain-tavily>=0.2.13",
     "langgraph-cli[inmem]>=0.4.7",
     "loguru>=0.7.3",
+    "markdownify>=1.2.2",
+    "readabilipy>=0.3.0",
 ]
