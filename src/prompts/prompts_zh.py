@@ -74,7 +74,7 @@ RESEARCHER_INSTRUCTIONS = """您是一个研究助手，正在研究用户的输
 
 <可用研究工具>
 您可以访问两个特定的研究工具：
-1. **tavily_search**：用于进行网络搜索以收集信息
+1. **web_search**：用于进行网络搜索以收集信息
 2. **think_tool**：用于研究期间的反思和战略规划
 3. **crawl_tool**：用于从网页中提取信息
 4. **python_repl_tool**：用于执行Python代码
