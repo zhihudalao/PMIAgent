@@ -7,13 +7,15 @@ for conducting web research with strategic thinking and context management.
 from datetime import datetime
 
 from deepagents import create_deep_agent
+from deepagents.backends import FilesystemBackend
 
-from research_agent.prompts_zh import (
+from src.deep_agent.research_agent import (
     RESEARCHER_INSTRUCTIONS,
     RESEARCH_WORKFLOW_INSTRUCTIONS,
     SUBAGENT_DELEGATION_INSTRUCTIONS,
+    tavily_search,
+    think_tool,
 )
-from research_agent.tools import tavily_search, think_tool
 from src.tools import (
     crawl_tool,
     get_web_search_tool,
@@ -58,4 +60,5 @@ agent = create_deep_agent(
     tools=[tavily_search, think_tool,crawl_tool],
     system_prompt=INSTRUCTIONS,
     subagents=[research_sub_agent],
+    backend=FilesystemBackend(root_dir="./reports", virtual_mode=True),
 )
