@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "deepagents>=0.2.8",
     "langchain>=1.1.0",
     "langchain-community>=0.4.1",
     "langchain-experimental>=0.4.0",
@@ -14,4 +15,5 @@ dependencies = [
     "loguru>=0.7.3",
     "markdownify>=1.2.2",
     "readabilipy>=0.3.0",
+    "tavily>=1.1.0",
 ]
