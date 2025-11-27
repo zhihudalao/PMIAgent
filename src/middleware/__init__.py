@@ -16,6 +16,13 @@ from .ui_events_middleware import (
     CURRENT_QUESTION,
 )
 
+from .agent_memory import AgentMemoryMiddleware
+from .context_enhancement import ContextEnhancementMiddleware
+from .layered_memory import LayeredMemoryMiddleware
+from .logging import LoggingMiddleware
+from .performance_monitor import PerformanceMonitorMiddleware
+from .security import SecurityMiddleware
+
 __all__ = [
     'trace_model_call',
     'trace_tool_call',
@@ -23,4 +30,10 @@ __all__ = [
     'ui_tool_trace',
     'RUN_UI_EVENTS',
     'CURRENT_QUESTION',
+    "AgentMemoryMiddleware",
+    "PerformanceMonitorMiddleware",
+    "LayeredMemoryMiddleware",
+    "ContextEnhancementMiddleware",
+    "SecurityMiddleware",
+    "LoggingMiddleware",
 ]

@@ -2,27 +2,34 @@ from langchain_core.tools import tool
 
 @tool(parse_docstring=True)
 def think_tool(reflection: str) -> str:
-    """Tool for strategic reflection on research progress and decision-making.
+    """用于研究进展和决策的战略思考工具
 
-    Use this tool after each search to analyze results and plan next steps systematically.
-    This creates a deliberate pause in the research workflow for quality decision-making.
+    该工具用于在每次搜索后系统性地分析结果并规划下一步行动，在研究工作流中创建一个刻意的停顿，以确保高质量的决策。
 
-    When to use:
-    - After receiving search results: What key information did I find?
-    - Before deciding next steps: Do I have enough to answer comprehensively?
-    - When assessing research gaps: What specific information am I still missing?
-    - Before concluding research: Can I provide a complete answer now?
+    使用场景：
+    - 收到搜索结果后：我找到了哪些关键信息？
+    - 决定下一步行动前：我是否有足够的信息来全面回答问题？
+    - 评估研究差距时：我还缺少哪些具体信息？
+    - 结束研究前：我现在能否提供一个完整的答案？
 
-    Reflection should address:
-    1. Analysis of current findings - What concrete information have I gathered?
-    2. Gap assessment - What crucial information is still missing?
-    3. Quality evaluation - Do I have sufficient evidence/examples for a good answer?
-    4. Strategic decision - Should I continue searching or provide my answer?
+    思考内容应包含：
+    1. 当前发现分析 - 我收集到了哪些具体信息？
+    2. 差距评估 - 还缺少哪些关键信息？
+    3. 质量评价 - 我是否有足够的证据/示例来支持一个好的答案？
+    4. 战略决策 - 我应该继续搜索还是提供答案？
+    5. 下一步计划 - 如果继续搜索，我应该关注哪些具体方向？
 
-    Args:
-        reflection: Your detailed reflection on research progress, findings, gaps, and next steps
+    思考示例：
+    1. 当前发现：我找到了关于2025年AI发展趋势的三篇重要报告，涵盖了生成式AI在企业中的应用、伦理规范和技术突破。
+    2. 差距：缺少关于AI在医疗领域的具体案例和数据，以及监管政策的最新变化。
+    3. 质量评价：现有信息对AI整体趋势分析足够，但医疗领域的深度不足。
+    4. 战略决策：需要继续搜索AI在医疗领域的应用案例和最新监管政策。
+    5. 下一步计划：搜索"2025年AI医疗应用案例"和"全球AI监管政策最新进展"。
 
-    Returns:
-        Confirmation that reflection was recorded for decision-making
+    参数：
+        reflection: 您对研究进展、发现、差距和下一步行动的详细思考
+
+    返回：
+        确认思考已记录，用于决策参考
     """
-    return f"Reflection recorded: {reflection}"
+    return f"思考已记录：{reflection}"

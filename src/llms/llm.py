@@ -7,8 +7,10 @@ from langchain.chat_models import init_chat_model
 from langchain_core.language_models import BaseChatModel
 
 from src.config import load_yaml_config
-from src.config.agents import LLMType
 
+from typing import Literal
+# Define available LLM types
+LLMType = Literal["basic", "reasoning", "vision", "code"]
 
 # Cache for LLM instances
 _llm_cache: dict[LLMType, BaseChatModel] = {}
