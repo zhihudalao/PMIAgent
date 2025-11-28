@@ -2,10 +2,15 @@ from loguru import logger
 import sys
 from pathlib import Path
 import json
+from datetime import datetime
 
-# 创建日志目录， Path 指的是当前工作目录下的 logs 目录。如果你在不同的目录中运行脚本，logs 目录的位置也会相应变化。
-# 也就是说：logs 目录的位置取决于运行 Python 程序时的当前工作目录。不同的组件或模块在不同的工作目录下运行时，logs 目录也会位于不同的位置。
-log_dir = Path("logs")
+# 创建基础日志目录
+base_log_dir = Path("logs")
+base_log_dir.mkdir(exist_ok=True)
+
+# 获取当前日期作为子目录名
+current_date = datetime.now().strftime('%Y-%m-%d')
+log_dir = base_log_dir / current_date
 log_dir.mkdir(exist_ok=True)
 
 # 移除默认的控制台输出
@@ -18,26 +23,18 @@ logger.add(
     level="INFO"
 )
 
-# 添加文件输出
+# 添加文件输出 - 直接使用固定路径（兼容旧版本loguru）
 logger.add(
-    "logs/app_{time:YYYY-MM-DD}.log",  # 按日期命名的普通日志文件
-    rotation="00:00",  # 每天午夜创建新的日志文件
-    retention="10 days",  # 保留10天的日志
-    compression="zip",  # 压缩旧的日志文件
+    str(log_dir / f"app_{current_date}.log"),
     format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {file}:{function}:{line} - {message}",
-    level="INFO",
-    encoding="utf-8"
+    level="INFO"
 )
 
 # 错误日志单独存储
 logger.add(
-    "logs/error_{time:YYYY-MM-DD}.log",  # 按日期命名的错误日志文件
-    rotation="00:00",  # 每天午夜创建新的日志文件
-    retention="30 days",  # 保留30天的日志
-    compression="zip",  # 压缩旧的日志文件
+    str(log_dir / f"error_{current_date}.log"),
     format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {file}:{function}:{line} - {message}",
-    level="ERROR",
-    encoding="utf-8"
+    level="ERROR"
 )
 
 def get_logger(service: str):

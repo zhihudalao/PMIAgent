@@ -2,7 +2,7 @@ from langchain_core.tools import tool
 
 @tool(parse_docstring=True)
 def think_tool(reflection: str) -> str:
-    """用于研究进展和决策的战略思考工具
+    """用于研究进展和决策的战略思考工具。
 
     该工具用于在每次搜索后系统性地分析结果并规划下一步行动，在研究工作流中创建一个刻意的停顿，以确保高质量的决策。
 
@@ -26,10 +26,10 @@ def think_tool(reflection: str) -> str:
     4. 战略决策：需要继续搜索AI在医疗领域的应用案例和最新监管政策。
     5. 下一步计划：搜索"2025年AI医疗应用案例"和"全球AI监管政策最新进展"。
 
-    参数：
+    Args:
         reflection: 您对研究进展、发现、差距和下一步行动的详细思考
 
-    返回：
-        确认思考已记录，用于决策参考
+    Returns:
+        str: 确认思考已记录，用于决策参考
     """
     return f"思考已记录：{reflection}"

@@ -60,6 +60,20 @@ class LoggingMiddleware(AgentMiddleware): # ✅ 类名随意
         #logger.info(f"[中间件] 消耗 tokens: {runtime.get('usage', {}).get('total_tokens', 0)}")
         return None  # 返回 None 表示不修改状态
 
+    async def abefore_model(self, state, runtime):
+        """模型调用前"""
+        logger.info("\n[中间件] before_model: 准备调用模型")
+        logger.info(f"[中间件] 当前消息数: {len(state.get('messages', []))}")
+        return None  # 返回 None 表示继续正常流程
+
+    async def aafter_model(self, state, runtime):
+        """模型响应后"""
+        logger.info("[中间件] after_model: 模型已响应")
+        last_message = state.get('messages', [])[-1]
+        logger.info(f"[中间件] 响应类型: {last_message.__class__.__name__}")
+        #logger.info(f"[中间件] 消耗 tokens: {runtime.get('usage', {}).get('total_tokens', 0)}")
+        return None  # 返回 None 表示不修改状态
+
 
 # ============================================================================
 # 示例 2：修改状态的中间件
