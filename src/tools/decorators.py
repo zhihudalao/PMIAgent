@@ -1,6 +1,7 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+import asyncio
 import functools
 from typing import Any, Callable, Type, TypeVar
 from src.config.logger import get_logger
@@ -21,24 +22,42 @@ def log_io(func: Callable) -> Callable:
         The wrapped function with input/output logging
     """
 
-    @functools.wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> Any:
-        # Log input parameters
-        func_name = func.__name__
-        params = ", ".join(
-            [*(str(arg) for arg in args), *(f"{k}={v}" for k, v in kwargs.items())]
-        )
-        logger.info(f"Tool {func_name} called with parameters: {params}")
+    if asyncio.iscoroutinefunction(func):
+        @functools.wraps(func)
+        async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
+            # Log input parameters
+            func_name = func.__name__
+            params = ", ".join(
+                [*(str(arg) for arg in args), *(f"{k}={v}" for k, v in kwargs.items())]
+            )
+            logger.info(f"Tool {func_name} called with parameters: {params}")
 
-        # Execute the function
-        result = func(*args, **kwargs)
+            # Execute the async function
+            result = await func(*args, **kwargs)
 
-        # Log the output
-        logger.info(f"Tool {func_name} returned: {result}")
+            # Log the output
+            logger.info(f"Tool {func_name} returned: {result}")
 
-        return result
+            return result
+        return async_wrapper
+    else:
+        @functools.wraps(func)
+        def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
+            # Log input parameters
+            func_name = func.__name__
+            params = ", ".join(
+                [*(str(arg) for arg in args), *(f"{k}={v}" for k, v in kwargs.items())]
+            )
+            logger.info(f"Tool {func_name} called with parameters: {params}")
 
-    return wrapper
+            # Execute the sync function
+            result = func(*args, **kwargs)
+
+            # Log the output
+            logger.info(f"Tool {func_name} returned: {result}")
+
+            return result
+        return sync_wrapper
 
 
 class LoggedToolMixin:
